@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class NetworkManager {
     static let shared = NetworkManager()
@@ -28,8 +29,14 @@ class NetworkManager {
                 return
             }
             
+            if let response = response as? HTTPURLResponse {
+                print("STATUS CODE:", response.statusCode)
+            }
+
+            
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 completed(nil, "error from server")
+
                 return
             }
             
@@ -52,4 +59,27 @@ class NetworkManager {
         task.resume()
 
     }
+    
+    func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
+
+        guard let url = URL(string: urlString) else {
+            completed(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let data = data,
+                let image = UIImage(data: data)
+            else {
+                completed(nil)
+                return
+            }
+
+            Task{
+                @MainActor in completed(image)
+            }
+        }.resume()
+    }
+
 }

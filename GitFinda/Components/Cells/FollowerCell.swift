@@ -14,6 +14,7 @@ class FollowerCell: UICollectionViewCell {
     let avatarImageView = GFAvatarImageView(frame: .zero)
     let usernameLabel = GFTitleLabel(textAlignment: .center, fontSize: 16)
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -24,6 +25,9 @@ class FollowerCell: UICollectionViewCell {
     }
     
     func set(follower: Follower) {
+        avatarImageView.setImage(from: follower.avatarUrl)
+        avatarImageView.layer.cornerRadius = 167/2
+        avatarImageView.clipsToBounds = true
         usernameLabel.text = follower.login
     }
     
@@ -38,11 +42,13 @@ class FollowerCell: UICollectionViewCell {
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             
             
-            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 12),
+            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
             usernameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             usernameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            usernameLabel.heightAnchor.constraint(equalToConstant: 20)
+            usernameLabel.heightAnchor.constraint(equalToConstant: 16)
         ])
+        
+        
     }
     
     

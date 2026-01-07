@@ -39,10 +39,10 @@ class SearchVC: UIViewController {
         navigationController?.pushViewController(followerListVC, animated: true)
         
     }
-    
+
     func configureUserNameTF(){
         view.addSubview(userNameTextField)
-        userNameTextField.delegate = self
+        userNameTextField.delegate = self // connecting to delegate
         
         NSLayoutConstraint.activate([
             userNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
@@ -73,6 +73,4 @@ extension SearchVC: UITextFieldDelegate {
         pushFollowerListVC()
         return true
     }
-    
-    
 }

@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "041836DE-A65A-44EE-B292-F54B925ACBA6"
-            shouldBeEnabled = "No"
+            uuid = "FC042163-BA7D-41F2-804E-F49651894CE0"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GitFinda/Managers/NetworkManager.swift"
+            filePath = "GitFinda/Extensions/UIViewController+Ext.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "getFollowers(for:page:completed:)"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "presentGFAlertOnMainThread(title:message:buttonTitle:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

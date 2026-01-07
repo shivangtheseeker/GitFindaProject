@@ -26,7 +26,6 @@ nonisolated enum FollowerListSection: Hashable, Sendable {
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let shivang = "Shivang"
     }
 
     
@@ -40,13 +39,15 @@ nonisolated enum FollowerListSection: Hashable, Sendable {
     func createThreeColumnFlowLayout()-> UICollectionViewFlowLayout{
         let width = view.bounds.width
         let padding: CGFloat = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availabeleWidth = width - (padding * 2) - (minimumItemSpacing * 2)
-        let itemWidth = availabeleWidth/3
+        let minimumItemSpacing: CGFloat = 12
+        let availabeleWidth = width - (padding * 2) - minimumItemSpacing
+        let itemWidth = availabeleWidth/2
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        flowLayout.minimumLineSpacing = minimumItemSpacing
+        flowLayout.minimumInteritemSpacing = minimumItemSpacing
         
         return flowLayout
     }
@@ -78,6 +79,7 @@ nonisolated enum FollowerListSection: Hashable, Sendable {
     func configureDataSource(){
         datasource = UICollectionViewDiffableDataSource<FollowerListSection, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
+            cell.avatarImageView.configure()
             cell.set(follower: follower)
             return cell
         })

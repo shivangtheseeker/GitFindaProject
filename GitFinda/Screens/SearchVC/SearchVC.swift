@@ -14,6 +14,7 @@ class SearchVC: UIViewController {
         configureUserNameTF()
         configureCTAButton()
         createDismissKeyboardTapGasture()
+        
 
         // Do any additional setup after loading the view.
     }
@@ -33,7 +34,7 @@ class SearchVC: UIViewController {
             presentGFAlertOnMainThread(title: "Empty Username", message: "Please enter a username. we need to know who to look for", buttonTitle: "ok")
             return
         }
-        let followerListVC = FollowerListVC()
+        let followerListVC = FolllowerVC()
         followerListVC.userName = userNameTextField.text
         followerListVC.title = userNameTextField.text
         navigationController?.pushViewController(followerListVC, animated: true)

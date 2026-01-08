@@ -11,17 +11,79 @@ class FolllowerVC: UIViewController {
     
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var tableView: UITableView!
     
     var userName : String!
     var followers: [Follower] = []
     var networkManager = NetworkManager()
+    var isGridView : Bool = true
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-
+        configureTableView()
+        configureNavBar()
+        updateLayout()
         getFollower()
+    }
+    
+    func configureTableView(){
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        let nib = UINib(nibName: "FollowerTableCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: FollowerTableCell.reuseID)
+        
+        tableView.rowHeight = 80
+        tableView.tableFooterView = UIView()
+        
+        
+        
+    }
+    
+    
+    
+    func configureNavBar(){
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.spacing = 6
+
+        let labelGrid = UILabel()
+        labelGrid.text = "Grid"
+
+        let labelTabular = UILabel()
+        labelTabular.text = "Table"
+        
+        let toggleBTN = UISwitch()
+        toggleBTN.isOn = isGridView
+        toggleBTN.addTarget(self, action: #selector(toggleChanged(_:)), for: .valueChanged)
+        
+        
+        stack.addArrangedSubview(labelTabular)
+        stack.addArrangedSubview(toggleBTN)
+        stack.addArrangedSubview(labelGrid)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: stack)
+    }
+    
+    @objc func toggleChanged(_ sender: UISwitch){
+        isGridView = sender.isOn
+        updateLayout()
+    }
+    
+    func updateLayout(){
+        if isGridView {
+            collectionView.isHidden = false
+            collectionView.reloadData()
+            tableView.isHidden = true
+        }
+        else{
+            tableView.isHidden = false
+            tableView.reloadData()
+            collectionView.isHidden = true
+        }
     }
     
     func configureCollectionView(){
@@ -113,4 +175,25 @@ extension FolllowerVC : UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension FolllowerVC : UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return followers.count
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: FollowerTableCell.reuseID,
+            for: indexPath
+        ) as? FollowerTableCell else {
+            return UITableViewCell()
+        }
+
+        let follower = followers[indexPath.row]
+        cell.set(follower: follower)
+        return cell
+    }
+}
+
+extension FolllowerVC : UITableViewDelegate{
+    
+}

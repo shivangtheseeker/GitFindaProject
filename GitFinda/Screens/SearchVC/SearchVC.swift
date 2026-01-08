@@ -15,6 +15,8 @@ class SearchVC: UIViewController {
         configureCTAButton()
         createDismissKeyboardTapGasture()
         
+        userNameTextField.text = "Neha"
+        
 
         // Do any additional setup after loading the view.
     }
@@ -38,6 +40,7 @@ class SearchVC: UIViewController {
         followerListVC.userName = userNameTextField.text
         followerListVC.title = userNameTextField.text
         navigationController?.pushViewController(followerListVC, animated: true)
+        navigationController?.isNavigationBarHidden = false
         
     }
 
